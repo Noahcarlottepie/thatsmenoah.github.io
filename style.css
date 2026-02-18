@@ -394,27 +394,14 @@ main {
 }
 
 .about-photo {
-    width: 280px; /* Фиксированный размер */
-    height: 280px; /* Квадратная картинка */
+    width: 400px; /* Фиксированный размер */
+    height: 400px; /* Квадратная картинка */
     object-fit: cover; /* Чтобы картинка красиво вписалась */
     border-radius: 20px;
     position: relative;
     z-index: 2;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease;
 }
-
-/* Эффект при наведении */
-.about-image:hover::before {
-    top: -12px;
-    left: -12px;
-    right: -12px;
-    bottom: -12px;
-    opacity: 1;
-    border-color: var(--accent-hover);
-    box-shadow: 0 0 30px var(--accent-glow);
-}
-
 
 /* Для мобильных устройств */
 @media (max-width: 768px) {
