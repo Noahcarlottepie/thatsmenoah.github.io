@@ -1,3 +1,41 @@
+// Language switching functionality
+let currentLang = 'en';
+
+const langSwitcher = document.getElementById('langSwitcher');
+const langEn = document.querySelector('.lang-en');
+const langRu = document.querySelector('.lang-ru');
+
+// Function to update all text elements based on selected language
+function updateLanguage(lang) {
+    currentLang = lang;
+    
+    // Update all elements with data-en and data-ru attributes
+    document.querySelectorAll('[data-en][data-ru]').forEach(element => {
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            element.placeholder = element.getAttribute(`data-${lang}`);
+        } else {
+            element.textContent = element.getAttribute(`data-${lang}`);
+        }
+    });
+
+    // Update active state of language switcher buttons
+    if (lang === 'en') {
+        langEn.classList.add('active');
+        langRu.classList.remove('active');
+        document.documentElement.lang = 'en';
+    } else {
+        langRu.classList.add('active');
+        langEn.classList.remove('active');
+        document.documentElement.lang = 'ru';
+    }
+}
+
+// Add click event listeners to language switcher
+if (langSwitcher) {
+    langEn.addEventListener('click', () => updateLanguage('en'));
+    langRu.addEventListener('click', () => updateLanguage('ru'));
+}
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -120,11 +158,12 @@ if (contactForm) {
         const formData = new FormData(contactForm);
         const data = Object.fromEntries(formData);
         
-        // Here you would typically send the data to a server
-        console.log('Form submitted:', data);
+        // Show success message in current language
+        const message = currentLang === 'en' 
+            ? 'Thank you for your message! I will get back to you soon.'
+            : 'Спасибо за сообщение! Я свяжусь с вами скоро.';
         
-        // Show success message
-        alert('Thank you for your message! I will get back to you soon.');
+        alert(message);
         contactForm.reset();
     });
 }
@@ -182,9 +221,19 @@ function updateBirthdayCountdown() {
     const birthdayElements = document.querySelectorAll('.age-badge');
     if (diffDays <= 30) {
         birthdayElements.forEach(el => {
-            el.innerHTML = `15 years old · Birthday in ${diffDays} days!`;
+            if (currentLang === 'en') {
+                el.innerHTML = `15 years old · Birthday in ${diffDays} days!`;
+            } else {
+                el.innerHTML = `15 лет · День рождения через ${diffDays} ${getDaysWord(diffDays)}!`;
+            }
         });
     }
+}
+
+function getDaysWord(days) {
+    if (days % 10 === 1 && days % 100 !== 11) return 'день';
+    if ([2, 3, 4].includes(days % 10) && ![12, 13, 14].includes(days % 100)) return 'дня';
+    return 'дней';
 }
 
 updateBirthdayCountdown();
@@ -200,3 +249,6 @@ window.addEventListener('scroll', () => {
         header.style.backgroundColor = 'rgba(8, 8, 8, 0.95)';
     }
 });
+
+// Initialize with English
+updateLanguage('en');
