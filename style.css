@@ -404,36 +404,6 @@ main {
     transition: all 0.3s ease;
 }
 
-/* Ободок вокруг картинки */
-.about-image::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
-    border: 2px solid var(--accent-color);
-    border-radius: 28px; /* Чуть больше чем у фото */
-    z-index: 1;
-    transition: all 0.3s ease;
-    opacity: 0.7;
-}
-
-/* Второй ободок (дополнительный эффект) */
-.about-image::after {
-    content: '';
-    position: absolute;
-    top: -14px;
-    left: -14px;
-    right: -14px;
-    bottom: -14px;
-    border: 1px solid var(--accent-color);
-    border-radius: 34px;
-    z-index: 0;
-    opacity: 0.3;
-    transition: all 0.3s ease;
-}
-
 /* Эффект при наведении */
 .about-image:hover::before {
     top: -12px;
@@ -445,18 +415,6 @@ main {
     box-shadow: 0 0 30px var(--accent-glow);
 }
 
-.about-image:hover::after {
-    top: -18px;
-    left: -18px;
-    right: -18px;
-    bottom: -18px;
-    opacity: 0.5;
-}
-
-.about-image:hover .about-photo {
-    transform: scale(1.02);
-    box-shadow: 0 30px 50px rgba(124, 77, 255, 0.4);
-}
 
 /* Для мобильных устройств */
 @media (max-width: 768px) {
